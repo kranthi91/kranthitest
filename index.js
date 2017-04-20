@@ -4,8 +4,8 @@ var vhost = require('vhost');
 /*
 edit /etc/hosts:
 
-127.0.0.1       api.mydomain.local
-127.0.0.1       admin.mydomain.local
+127.0.0.1       kranthi
+127.0.0.1       kiran
 */
 
 // require your first app here
@@ -30,16 +30,15 @@ appWithVhost.use(vhost('kranthi', app1)); // Serves first app
 appWithVhost.use(vhost('kiran', app2)); // Serves second app
 
 /* istanbul ignore next */
-if (!module.parent) {
-  appWithVhost.listen(8000);
-  console.log('Express started on port 8000');
-}
 
 
-require('./router/main')(app);
+
+require('./router/main')(app1);
 app1.set('views',__dirname + '/views');
 app1.set('view engine', 'ejs');
 app1.engine('html',require('ejs').renderFile);
-var index = app1.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+if (!module.parent) {
+  appWithVhost.listen(3000);
+  console.log('Express started on port 3000');
+}
 })
